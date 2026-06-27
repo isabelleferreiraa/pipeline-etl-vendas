@@ -8,7 +8,14 @@ Projeto de pipeline ETL simples que consome dados de uma API pública, trata os 
 - Requests
 - Pandas
 
-## 🔄 Etapas do projeto
+## Arquitetura do Pipeline
+O fluxo do projeto segue o modelo ETL:
+
+- **Extract:** Coleta de dados da API Fake Store
+- **Transform:** Tratamento e estruturação dos dados com Pandas
+- **Load:** Exportação dos dados tratados para CSV
+
+## Etapas do projeto
 
 ### 1. Extract
 Consumo de dados da API Fake Store:
@@ -16,22 +23,34 @@ https://fakestoreapi.com/products
 
 ### 2. Transform
 - Conversão de JSON para DataFrame
-- Normalização do campo "rating"
-- Limpeza e estruturação dos dados
+- Normalização do campo `rating`
+- Tratamento e organização dos dados
 
 ### 3. Load
-- Exportação dos dados tratados para CSV
+- Salvamento dos dados tratados em arquivo CSV
+- Estrutura organizada na pasta `data/processed/`
 
 ## 📊 Resultado final
 Arquivo CSV gerado na pasta `data/`
 
 ## 📂 Estrutura do projeto
 
-src/
-data/
-README.md
-requirements.txt
-
+```
+pipeline-etl-vendas/
+│
+├── src/
+│   ├── extract.py
+│   ├── transform.py
+│   ├── load.py
+│   ├── logger.py
+│   └── main.py
+│
+├── data/
+│   └── processed/
+│
+├── requirements.txt
+└── README.md
+```
 ## 👨‍💻 Autor
   Isabelle Ferreira Neri Feitoza — Aluna da FIAP: Graduação em Ánalise e Desenvolvimento de sistemas 
   RM 573507 - Turma: 1TDSPH
