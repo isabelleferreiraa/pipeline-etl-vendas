@@ -6,18 +6,22 @@ from logger import setup_logger
 logger = setup_logger()
 
 def main():
-    logger.info("Iniciando ETL...")
+    try:
+        logger.info("Iniciando ETL...")
 
-    logger.info("Extraindo dados da API...")
-    data = extract_data()
+        logger.info("Extraindo dados da API...")
+        data = extract_data()
 
-    logger.info("Transformando dados...")
-    df = transform_data(data)
+        logger.info("Transformando dados...")
+        df = transform_data(data)
 
-    logger.info("Salvando dados...")
-    load_data(df)
+        logger.info("Salvando dados...")
+        load_data(df)
 
-    logger.info("ETL finalizado com sucesso!")
+        logger.info("ETL finalizado com sucesso!")
+
+    except Exception as e:
+        logger.exception(f"Erro durante a execução do ETL: {e}")
 
 if __name__ == "__main__":
     main()
