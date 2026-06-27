@@ -1,25 +1,24 @@
 import os
 import psycopg2
 
-from logger import setup_logger
 from config import (
     DB_HOST,
     DB_NAME,
     DB_USER,
     DB_PASSWORD,
     DB_PORT,
-    PROCESSED_DATA_PATH
+    PROCESSED_DATA_PATH,
 )
+from logger import setup_logger
 
 logger = setup_logger()
 
 
 def load_data(df):
-    """Salva os dados tratados em CSV e no PostgreSQL."""
+    """
+    Salva os dados tratados em CSV e no PostgreSQL.
+    """
 
-    # =========================
-    # 1. Salva o CSV
-    # =========================
     os.makedirs(os.path.dirname(PROCESSED_DATA_PATH), exist_ok=True)
     df.to_csv(PROCESSED_DATA_PATH, index=False)
 
@@ -27,22 +26,16 @@ def load_data(df):
     cur = None
 
     try:
-        # =========================
-        # 2. Conecta ao PostgreSQL
-        # =========================
         conn = psycopg2.connect(
             host=DB_HOST,
             database=DB_NAME,
             user=DB_USER,
             password=DB_PASSWORD,
-            port=DB_PORT
+            port=DB_PORT,
         )
 
         cur = conn.cursor()
 
-        # =========================
-        # 3. Insere os dados
-        # =========================
         for _, row in df.iterrows():
             cur.execute(
                 """

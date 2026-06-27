@@ -1,21 +1,23 @@
+from logger import setup_logger
+
+logger = setup_logger()
+
+
 def validate_data(df):
     """
     Valida o DataFrame antes do carregamento.
     """
 
-    # Verifica se o DataFrame está vazio
     if df.empty:
         raise ValueError("O DataFrame está vazio.")
 
-    # Colunas obrigatórias
     required_columns = [
         "id",
         "title",
         "price",
-        "category"
+        "category",
     ]
 
-    # Verifica se todas existem
     missing_columns = [
         column
         for column in required_columns
@@ -27,11 +29,18 @@ def validate_data(df):
             f"Colunas obrigatórias ausentes: {missing_columns}"
         )
 
-    # Verifica se há valores nulos na coluna "price"
+    if df["id"].isnull().any():
+        raise ValueError("Existem IDs nulos.")
+
+    if df["id"].duplicated().any():
+        raise ValueError("Existem IDs duplicados.")
+
     if df["price"].isnull().any():
-        raise ValueError("Existem valores nulos na coluna 'price'.")
+        raise ValueError("Existem preços nulos.")
 
     if (df["price"] < 0).any():
-        raise ValueError("Foram encontrados preços negativos.")
+        raise ValueError("Existem preços negativos.")
+
+    logger.info("Validação concluída com sucesso!")
 
     return True
