@@ -1,9 +1,27 @@
 import pandas as pd
 
+from logger import setup_logger
+
+logger = setup_logger()
+
+
 def transform_data(data):
-    df = pd.DataFrame(data)
+    """
+    Transforma os dados extraídos da API em um DataFrame tratado.
+    """
 
-    rating_df = pd.json_normalize(df["rating"])
-    df = df.drop(columns=["rating"]).join(rating_df)
+    try:
+        # Serve para criar o DataFrame principal
+        df = pd.DataFrame(data)
 
-    return df
+        # Expande a coluna 'rating' em colunas separadas
+        rating_df = pd.json_normalize(df["rating"])
+        df = df.drop(columns=["rating"]).join(rating_df)
+
+        logger.info("Dados transformados com sucesso!")
+
+        return df
+
+    except Exception as e:
+        logger.exception(f"Erro durante a transformação dos dados: {e}")
+        raise
