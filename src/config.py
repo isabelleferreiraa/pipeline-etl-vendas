@@ -12,3 +12,4 @@ DB_PORT = os.getenv("DB_PORT")
 
 PROCESSED_DATA_PATH = "data/processed/produtos_tratados.csv"
 API_URL = "https://fakestoreapi.com/products"
+RAW_DATA_PATH = "data/raw/produtos_raw.json"
