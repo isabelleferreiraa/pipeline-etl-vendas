@@ -217,3 +217,9 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 pipeline.log
+
+# Dados gerados pelo ETL
+data/processed/
+
+# Logs
+pipeline.log

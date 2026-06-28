@@ -1,5 +1,7 @@
 import os
+
 import psycopg2
+from psycopg2.extras import execute_values
 
 from config import (
     DB_HOST,
@@ -19,6 +21,7 @@ def load_data(df):
     Salva os dados tratados em CSV e no PostgreSQL.
     """
 
+    # Salva o CSV tratado
     os.makedirs(os.path.dirname(PROCESSED_DATA_PATH), exist_ok=True)
     df.to_csv(PROCESSED_DATA_PATH, index=False)
 
@@ -26,6 +29,7 @@ def load_data(df):
     cur = None
 
     try:
+        # Conecta ao PostgreSQL
         conn = psycopg2.connect(
             host=DB_HOST,
             database=DB_NAME,
@@ -36,20 +40,26 @@ def load_data(df):
 
         cur = conn.cursor()
 
-        for _, row in df.iterrows():
-            cur.execute(
-                """
-                INSERT INTO produtos (id, title, price, category)
-                VALUES (%s, %s, %s, %s)
-                ON CONFLICT (id) DO NOTHING;
-                """,
-                (
-                    int(row["id"]),
-                    row["title"],
-                    float(row["price"]),
-                    row["category"],
-                ),
+        # Query de inserção
+        query = """
+            INSERT INTO produtos (id, title, price, category)
+            VALUES %s
+            ON CONFLICT (id) DO NOTHING;
+        """
+
+        # Prepara os dados para inserção em lote
+        values = [
+            (
+                int(row["id"]),
+                row["title"],
+                float(row["price"]),
+                row["category"],
             )
+            for _, row in df.iterrows()
+        ]
+
+        # Insere todos os registros de uma só vez
+        execute_values(cur, query, values)
 
         conn.commit()
         logger.info("Dados carregados no PostgreSQL com sucesso!")
