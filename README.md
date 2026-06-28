@@ -1,6 +1,12 @@
 # 🚀 Pipeline ETL com Python
 
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![ETL](https://img.shields.io/badge/ETL-Pipeline-green)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
+
+```
 Pipeline ETL desenvolvido em Python para extração, transformação e carregamento de dados da Fake Store API, utilizando Pandas e PostgreSQL.
+```
 
 ## 📌 Sobre o projeto
 
@@ -10,12 +16,12 @@ Os dados são extraídos da Fake Store API, transformados com Pandas, validados 
 
 O projeto foi desenvolvido com foco em boas práticas de Engenharia de Dados, incluindo:
 
-- Organização modular do código
-- Configuração por variáveis de ambiente
-- Logging
+- Arquitetura modular em camadas (Extract, Transform, Load)
+- Configuração via variáveis de ambiente (.env)
+- Logging estruturado
+- Validação de dados antes da carga
+- Separação entre dados brutos (raw) e tratados (processed)
 - Tratamento de exceções
-- Validação de dados
-- Separação entre dados raw e processed
 
 ## 🛠️ Tecnologias utilizadas
 
@@ -29,6 +35,7 @@ O projeto foi desenvolvido com foco em boas práticas de Engenharia de Dados, in
 | **Python-dotenv** | Gerenciamento das variáveis de ambiente |
 | **Logging** | Registro de logs da execução |
 | **Git** | Controle de versão |
+| **Docker** | Containerização do ambiente |
 
 ## 🏗️ Arquitetura do Pipeline
 
@@ -40,6 +47,17 @@ flowchart TD
     D --> E[Load]
     E --> F[(PostgreSQL)]
     E --> G[CSV]
+```
+## 🐳 Docker
+
+```mermaid
+flowchart TD
+    A[Dockerfile] --> B[Build Image]
+    B --> C[Docker Image: pipeline-etl]
+    C --> D[Container Running]
+    D --> E[Executa Pipeline ETL]
+    E --> F[(PostgreSQL)]
+    E --> G[CSV Files]
 ```
 
 ## ⚙️ Como executar o projeto
@@ -145,9 +163,16 @@ Após a execução do pipeline são gerados:
 
 Aplicar conceitos de Engenharia de Dados, incluindo ingestão de dados via API, processamento com Pandas, validação, persistência em banco de dados e organização em um pipeline ETL modular.
 
+## 💡 Aprendizados
+
+- Construção de pipelines ETL do zero
+- Integração Python + PostgreSQL
+- Manipulação e limpeza de dados com Pandas
+- Estruturação de projeto em camadas
+- Boas práticas de engenharia de software aplicadas à dados
+
 ## 🔮 Melhorias futuras
 
-- Docker
 - Testes automatizados com Pytest
 - GitHub Actions
 - Orquestração com Apache Airflow

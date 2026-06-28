@@ -1,0 +1,35 @@
+services:
+  postgres:
+    image: postgres:17
+
+    container_name: postgres-etl
+
+    restart: always
+
+    environment:
+      POSTGRES_DB: etl_vendas
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  app:
+    build: .
+
+    container_name: pipeline-etl
+
+    depends_on:
+      - postgres
+
+    env_file:
+      - .env
+
+    command: python src/main.py
+
+volumes:
+  postgres_data:
