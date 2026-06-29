@@ -125,9 +125,12 @@ activemq-data/
 # SageMath
 *.sage.py
 
-# Ambientes virtuais
+# Variáveis de ambiente
 .env
+.env.docker
 .envrc
+
+# Ambientes virtuais
 .venv/
 env/
 venv/
@@ -188,3 +191,9 @@ logs/
 
 # Arquivos temporários do VS Code
 tempCodeRunnerFile.py
+
+# Arquivos do sistema
+.DS_Store
+
+# Arquivos temporários do Vim
+*.swp

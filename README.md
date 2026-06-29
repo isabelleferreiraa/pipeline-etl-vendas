@@ -4,9 +4,7 @@
 ![ETL](https://img.shields.io/badge/ETL-Pipeline-green)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
 
-```
 Pipeline ETL desenvolvido em Python para extração, transformação e carregamento de dados da Fake Store API, utilizando Pandas e PostgreSQL.
-```
 
 ## 📌 Sobre o projeto
 
@@ -74,13 +72,49 @@ git clone https://github.com/isabelleferreiraa/pipeline-etl-vendas.git
 cd pipeline-etl-vendas
 ```
 
-### 3. Crie o ambiente virtual
+### 3. Configure as variáveis de ambiente
+
+O projeto pode ser executado de duas formas: **localmente** ou utilizando **Docker**.
+
+#### Execução Local
+
+Crie um arquivo `.env` na raiz do projeto utilizando o `.env.example` como modelo:
+
+```env
+# Configure as credenciais do seu banco de dados
+
+DB_HOST=localhost
+DB_NAME=etl_vendas
+DB_USER=postgres
+DB_PASSWORD=****
+DB_PORT=5432
+```
+
+#### Execução com Docker
+
+Crie um arquivo `.env.docker` utilizando o `.env.docker.example` como modelo:
+
+```env
+# Configuração utilizada pelo Docker
+
+DB_HOST=postgres
+DB_NAME=etl_vendas
+DB_USER=postgres
+DB_PASSWORD=****
+DB_PORT=5432
+```
+
+---
+
+## ▶️ Opção 1 — Execução Local
+
+### Crie o ambiente virtual
 
 ```bash
 python -m venv .venv
 ```
 
-### 4. Ative o ambiente virtual
+### Ative o ambiente virtual
 
 **Windows (PowerShell):**
 
@@ -94,29 +128,46 @@ python -m venv .venv
 .venv\Scripts\activate
 ```
 
-### 5. Instale as dependências
+### Instale as dependências
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 6. Configure o arquivo `.env`
-
-Crie um arquivo `.env` na raiz do projeto utilizando o `.env.example` como modelo:
-
-```env
-DB_HOST=localhost
-DB_NAME=etl_vendas
-DB_USER=postgres
-DB_PASSWORD=sua_senha
-DB_PORT=5432
-```
-
-### 7. Execute o pipeline
+### Execute o pipeline
 
 ```bash
 python src/main.py
 ```
+
+---
+
+## 🐳 Opção 2 — Execução com Docker
+
+Certifique-se de que o Docker Desktop esteja em execução.
+
+### Construa e execute os containers
+
+```bash
+docker compose up --build
+```
+
+Ou, para executar em segundo plano:
+
+```bash
+docker compose up -d
+```
+
+O Docker irá automaticamente:
+
+- Criar o container do PostgreSQL;
+- Executar o script `database/init.sql`;
+- Aguardar o banco de dados ficar disponível (Health Check);
+- Construir a imagem da aplicação;
+- Executar o pipeline ETL;
+- Inserir os dados no PostgreSQL;
+- Gerar o arquivo CSV tratado;
+- Gerar os logs da execução.
 
 ## 📂 Estrutura do projeto
 
@@ -125,13 +176,12 @@ pipeline-etl-vendas/
 │
 ├── data/
 │   ├── raw/
-│   │   └── produtos_raw.json
-│   │
 │   └── processed/
-│       └── produtos_tratados.csv
+│
+├── database/
+│   └── init.sql
 │
 ├── logs/
-│   └── pipeline.log
 │
 ├── src/
 │   ├── config.py
@@ -144,8 +194,12 @@ pipeline-etl-vendas/
 │
 ├── tests/
 │
+├── .dockerignore
 ├── .env.example
 ├── .gitignore
+├── docker-compose.yml
+├── Dockerfile
+├── LICENSE
 ├── README.md
 └── requirements.txt
 ```
@@ -154,10 +208,10 @@ pipeline-etl-vendas/
 
 Após a execução do pipeline são gerados:
 
-- JSON bruto: `data/raw/produtos_raw.json`
-- CSV tratado: `data/processed/produtos_tratados.csv`
-- Logs da execução: `logs/pipeline.log`
-- Dados inseridos no PostgreSQL
+- JSON bruto em `data/raw/produtos_raw.json`
+- CSV tratado em `data/processed/produtos_tratados.csv`
+- Logs da execução em `logs/pipeline.log`
+- Dados persistidos no PostgreSQL
 
 ## 🎯 Objetivo do projeto
 
@@ -173,10 +227,10 @@ Aplicar conceitos de Engenharia de Dados, incluindo ingestão de dados via API, 
 
 ## 🔮 Melhorias futuras
 
+- Pipeline orquestrado com Apache Airflow
 - Testes automatizados com Pytest
-- GitHub Actions
-- Orquestração com Apache Airflow
-- Integração com Data Warehouse
+- Integração contínua com GitHub Actions
+- Data Warehouse para armazenamento analítico
 
 ## 👨‍💻 Autora
 
