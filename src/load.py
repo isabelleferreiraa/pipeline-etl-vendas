@@ -1,4 +1,5 @@
 import os
+import time
 
 import psycopg2
 from psycopg2.extras import execute_values
@@ -29,14 +30,31 @@ def load_data(df):
     cur = None
 
     try:
-        # Conecta ao PostgreSQL
-        conn = psycopg2.connect(
-            host=DB_HOST,
-            database=DB_NAME,
-            user=DB_USER,
-            password=DB_PASSWORD,
-            port=DB_PORT,
-        )
+        # Tenta conectar ao PostgreSQL até 5 vezes
+        for tentativa in range(5):
+            try:
+                conn = psycopg2.connect(
+                    host=DB_HOST,
+                    database=DB_NAME,
+                    user=DB_USER,
+                    password=DB_PASSWORD,
+                    port=DB_PORT,
+                )
+
+                logger.info("Conexão com o PostgreSQL estabelecida.")
+                break
+
+            except psycopg2.OperationalError as e:
+                logger.warning(
+                    f"Tentativa {tentativa + 1}/5: PostgreSQL ainda não está disponível. "
+                    f"Erro: {e}"
+                )
+                time.sleep(2)
+
+        if conn is None:
+            raise ConnectionError(
+                "Não foi possível conectar ao PostgreSQL após 5 tentativas."
+            )
 
         cur = conn.cursor()
 
@@ -62,7 +80,10 @@ def load_data(df):
         execute_values(cur, query, values)
 
         conn.commit()
-        logger.info("Dados carregados no PostgreSQL com sucesso!")
+
+        logger.info(
+            f"{len(values)} registros inseridos no PostgreSQL com sucesso!"
+        )
 
     except Exception as e:
         logger.exception(f"Erro ao carregar dados no PostgreSQL: {e}")
