@@ -1,10 +1,27 @@
 # 🚀 Pipeline ETL com Python
 
-![Python](https://img.shields.io/badge/Python-3.11-blue)
-![ETL](https://img.shields.io/badge/ETL-Pipeline-green)
+![Python](https://img.shields.io/badge/Python-3.13-blue)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
+![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED)
+![Pytest](https://img.shields.io/badge/Pytest-Tested-0A9EDC)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI-success)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 Pipeline ETL desenvolvido em Python para extração, transformação e carregamento de dados da Fake Store API, utilizando Pandas e PostgreSQL.
+
+## 📑 Sumário
+
+- Sobre o projeto
+- Tecnologias
+- Arquitetura
+- Como executar
+- Testes
+- Estrutura
+- Resultados
+- Objetivos
+- Aprendizados
+- Melhorias futuras
 
 ## 📌 Sobre o projeto
 
@@ -20,6 +37,21 @@ O projeto foi desenvolvido com foco em boas práticas de Engenharia de Dados, in
 - Validação de dados antes da carga
 - Separação entre dados brutos (raw) e tratados (processed)
 - Tratamento de exceções
+
+## ✨ Funcionalidades
+
+O pipeline oferece as seguintes funcionalidades:
+
+- Consumo de dados da Fake Store API
+- Transformação e tratamento dos dados com Pandas
+- Validação automática antes da carga
+- Persistência dos dados em PostgreSQL
+- Geração de arquivo CSV tratado
+- Geração de logs estruturados da execução
+- Configuração por variáveis de ambiente (`.env`)
+- Execução local ou em containers Docker
+- Testes automatizados com Pytest
+- Integração contínua com GitHub Actions
 
 ## 🛠️ Tecnologias utilizadas
 
@@ -198,17 +230,25 @@ pipeline-etl-vendas/
 ├── logs/
 │
 ├── src/
+│   ├── __init__.py
 │   ├── config.py
 │   ├── extract.py
-│   ├── transform.py
-│   ├── validate.py
 │   ├── load.py
 │   ├── logger.py
-│   └── main.py
+│   ├── main.py
+│   ├── transform.py
+│   └── validate.py
 │
 ├── tests/
+│   ├── __init__.py
+│   ├── conftest.py
+│   ├── test_extract.py
+│   ├── test_load.py
+│   ├── test_transform.py
+│   └── test_validate.py
 │
 ├── .dockerignore
+├── .env.docker.example
 ├── .env.example
 ├── .gitignore
 ├── docker-compose.yml
@@ -220,12 +260,16 @@ pipeline-etl-vendas/
 
 ## 📊 Resultado
 
-Após a execução do pipeline são gerados:
+Ao final da execução do pipeline são gerados:
 
-- JSON bruto em `data/raw/produtos_raw.json`
-- CSV tratado em `data/processed/produtos_tratados.csv`
-- Logs da execução em `logs/pipeline.log`
-- Dados persistidos no PostgreSQL
+- ✅ Arquivo JSON bruto em `data/raw/produtos_raw.json`
+- ✅ Arquivo CSV tratado em `data/processed/produtos_tratados.csv`
+- ✅ Inserção dos dados na tabela `produtos` do PostgreSQL
+- ✅ Logs estruturados da execução em `logs/pipeline.log`
+- ✅ Validação dos dados antes da carga no banco
+- ✅ Execução automatizada via Docker e Docker Compose
+- ✅ Testes automatizados com Pytest
+- ✅ Integração contínua (CI) com GitHub Actions
 
 ## 🎯 Objetivo do projeto
 
