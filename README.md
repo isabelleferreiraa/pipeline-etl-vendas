@@ -286,8 +286,6 @@ Aplicar conceitos de Engenharia de Dados, incluindo ingestão de dados via API, 
 ## 🔮 Melhorias futuras
 
 - Pipeline orquestrado com Apache Airflow
-- Testes automatizados com Pytest
-- Integração contínua com GitHub Actions
 - Data Warehouse para armazenamento analítico
 
 ## 👨‍💻 Autora
