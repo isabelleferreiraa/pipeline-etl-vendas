@@ -299,6 +299,8 @@ Desenvolver um pipeline ETL completo aplicando boas práticas de Engenharia de D
 - Armazenamento analítico em Data Warehouse
 - Versionamento de dados com Delta Lake
 - Dashboard para monitoramento da execução
+- Pipeline orquestrado com Apache Airflow
+- Data Warehouse para armazenamento analítico
 
 ## 👨‍💻 Autora
 
