@@ -1,4 +1,4 @@
-name: Python Tests
+name: Testes do Pipeline ETL
 
 on:
   push:
@@ -12,11 +12,11 @@ on:
       - master
 
 jobs:
-  tests:
+  testes:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Baixar o repositório
+      - name: Baixar repositório
         uses: actions/checkout@v4
 
       - name: Configurar Python
