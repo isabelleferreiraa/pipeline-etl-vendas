@@ -8,7 +8,7 @@
 ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI-success)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-Pipeline ETL desenvolvido em Python para extração, transformação e carregamento de dados da Fake Store API, utilizando Pandas e PostgreSQL.
+Pipeline ETL desenvolvido em Python para extração, transformação, validação e carga de dados em PostgreSQL, com Docker, Pytest e GitHub Actions.
 
 ## 📑 Sumário
 
