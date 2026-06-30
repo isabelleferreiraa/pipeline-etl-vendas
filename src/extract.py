@@ -3,8 +3,8 @@ import os
 
 import requests
 
-from config import API_URL, RAW_DATA_PATH
-from logger import setup_logger
+from src.config import API_URL, RAW_DATA_PATH
+from src.logger import setup_logger
 
 logger = setup_logger()
 

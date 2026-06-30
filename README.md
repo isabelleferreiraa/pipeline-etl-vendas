@@ -137,7 +137,7 @@ pip install -r requirements.txt
 ### Execute o pipeline
 
 ```bash
-python src/main.py
+python -m src.main
 ```
 
 ---
@@ -168,6 +168,20 @@ O Docker irá automaticamente:
 - Inserir os dados no PostgreSQL;
 - Gerar o arquivo CSV tratado;
 - Gerar os logs da execução.
+
+## 🧪 Executando os testes
+
+Para executar todos os testes do projeto:
+
+```bash
+pytest
+```
+
+Ou, para visualizar mais detalhes da execução:
+
+```bash
+pytest -v
+```
 
 ## 📂 Estrutura do projeto
 

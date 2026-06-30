@@ -1,8 +1,8 @@
-from extract import extract_data
-from transform import transform_data
-from validate import validate_data
-from load import load_data
-from logger import setup_logger
+from src.extract import extract_data
+from src.transform import transform_data
+from src.validate import validate_data
+from src.load import load_data
+from src.logger import setup_logger
 
 logger = setup_logger()
 
