@@ -4,7 +4,7 @@ import time
 import psycopg2
 from psycopg2.extras import execute_values
 
-from config import (
+from src.config import (
     DB_HOST,
     DB_NAME,
     DB_USER,
@@ -12,7 +12,7 @@ from config import (
     DB_PORT,
     PROCESSED_DATA_PATH,
 )
-from logger import setup_logger
+from src.logger import setup_logger
 
 logger = setup_logger()
 
