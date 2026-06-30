@@ -36,7 +36,7 @@ services:
     env_file:
       - .env.docker
 
-    command: python src/main.py
+    command: python -m src.main
 
 volumes:
   postgres_data:

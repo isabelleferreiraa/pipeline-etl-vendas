@@ -57,13 +57,15 @@ O pipeline oferece as seguintes funcionalidades:
 
 | Tecnologia | Finalidade |
 |------------|------------|
-| **Python 3** | Linguagem principal do projeto |
+| **Python 3.13** | Linguagem principal do projeto |
 | **Pandas** | Transformação e tratamento dos dados |
 | **Requests** | Consumo da API |
 | **PostgreSQL** | Armazenamento dos dados |
 | **Psycopg2** | Conexão entre Python e PostgreSQL |
 | **Python-dotenv** | Gerenciamento das variáveis de ambiente |
 | **Logging** | Registro de logs da execução |
+| **Pytest** | Testes automatizados |
+| **GitHub Actions** | Integração contínua (CI) |
 | **Git** | Controle de versão |
 | **Docker** | Containerização do ambiente |
 
@@ -118,7 +120,7 @@ Crie um arquivo `.env` na raiz do projeto utilizando o `.env.example` como model
 DB_HOST=localhost
 DB_NAME=etl_vendas
 DB_USER=postgres
-DB_PASSWORD=****
+DB_PASSWORD=sua_senha
 DB_PORT=5432
 ```
 
@@ -132,7 +134,7 @@ Crie um arquivo `.env.docker` utilizando o `.env.docker.example` como modelo:
 DB_HOST=postgres
 DB_NAME=etl_vendas
 DB_USER=postgres
-DB_PASSWORD=****
+DB_PASSWORD=postgres
 DB_PORT=5432
 ```
 
@@ -220,14 +222,19 @@ pytest -v
 ```text
 pipeline-etl-vendas/
 │
+├── .github/
+│   └── workflows/
+│       └── python-tests.yml
+│
 ├── data/
-│   ├── raw/
-│   └── processed/
+│   ├── processed/
+│   └── raw/
 │
 ├── database/
 │   └── init.sql
 │
 ├── logs/
+│   └── pipeline.log
 │
 ├── src/
 │   ├── __init__.py
@@ -248,8 +255,8 @@ pipeline-etl-vendas/
 │   └── test_validate.py
 │
 ├── .dockerignore
-├── .env.docker.example
 ├── .env.example
+├── .env.docker.example
 ├── .gitignore
 ├── docker-compose.yml
 ├── Dockerfile
@@ -273,7 +280,7 @@ Ao final da execução do pipeline são gerados:
 
 ## 🎯 Objetivo do projeto
 
-Aplicar conceitos de Engenharia de Dados, incluindo ingestão de dados via API, processamento com Pandas, validação, persistência em banco de dados e organização em um pipeline ETL modular.
+Desenvolver um pipeline ETL completo aplicando boas práticas de Engenharia de Dados, incluindo ingestão de dados via API, transformação com Pandas, validação, persistência em PostgreSQL, containerização com Docker, testes automatizados e integração contínua com GitHub Actions.
 
 ## 💡 Aprendizados
 
@@ -282,9 +289,16 @@ Aplicar conceitos de Engenharia de Dados, incluindo ingestão de dados via API, 
 - Manipulação e limpeza de dados com Pandas
 - Estruturação de projeto em camadas
 - Boas práticas de engenharia de software aplicadas à dados
+- Containerização de aplicações com Docker
+- Escrita de testes automatizados com Pytest
+- Configuração de integração contínua com GitHub Actions
 
 ## 🔮 Melhorias futuras
 
+- Orquestração do pipeline com Apache Airflow
+- Armazenamento analítico em Data Warehouse
+- Versionamento de dados com Delta Lake
+- Dashboard para monitoramento da execução
 - Pipeline orquestrado com Apache Airflow
 - Data Warehouse para armazenamento analítico
 
